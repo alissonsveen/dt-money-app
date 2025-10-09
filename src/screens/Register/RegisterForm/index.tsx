@@ -8,40 +8,40 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { schema } from "./schema";
 import { useAuthContext } from "@/context/auth.context";
 import { AxiosError } from "axios";
-import { AppError } from "@/shared/helpers/AppError";
-import { useSnackbarContext } from "@/context/snackbar.context";
 import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
 import { colors } from "@/shared/colors";
 
-export interface FormLoginParams {
+export interface FormRegisterParams {
   email: string;
+  name: string;
   password: string;
+  confirmPassword: string;
 }
 
-export const LoginForm = () => {
+export const RegisterForm = () => {
   const {
     control,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<FormLoginParams>({
+  } = useForm<FormRegisterParams>({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
+      confirmPassword: "",
     },
     resolver: yupResolver(schema),
   });
 
-  const { handleAuthenticate } = useAuthContext();
+  const { handleRegister } = useAuthContext();
   const { handlerError } = useErrorHandler();
-  const { notify } = useSnackbarContext();
-
   const navigation = useNavigation<NavigationProp<PublicStackParamsList>>();
 
-  const onSubmit = async (userData: FormLoginParams) => {
+  const onSubmit = async (userData: FormRegisterParams) => {
     try {
-      await handleAuthenticate(userData);
+      await handleRegister(userData);
     } catch (error) {
-      handlerError(error, "Falha ao logar");
+      handlerError(error, "Falha ao cadastrar usuário");
     }
   };
 
@@ -49,35 +49,57 @@ export const LoginForm = () => {
     <>
       <AppInput
         control={control}
-        name="email"
-        label="EMAIL"
-        placeholder="mail@example.com.br"
-        leftIconName="mail-outline"
+        name="name"
+        leftIconName="person"
+        label="NOME"
+        placeholder="Seu nome"
       />
+
+      <AppInput
+        control={control}
+        name="email"
+        leftIconName="mail-outline"
+        label="EMAIL"
+        placeholder="mail@example.com"
+      />
+
       <AppInput
         control={control}
         name="password"
+        leftIconName="lock-outline"
         label="SENHA"
         placeholder="Sua senha"
+        secureTextEntry
+      />
+
+      <AppInput
+        control={control}
+        name="confirmPassword"
         leftIconName="lock-outline"
+        label="SENHA"
+        placeholder="Confirme sua senha"
         secureTextEntry
       />
 
       <View className="flex-1 justify-between mt-8 mb-6 min-h-[250px]">
         <AppButton onPress={handleSubmit(onSubmit)} iconName="arrow-forward">
-          {isSubmitting ? <ActivityIndicator color={colors.white} /> : "Login"}
+          {isSubmitting ? (
+            <ActivityIndicator color={colors.white} />
+          ) : (
+            "Cadastrar"
+          )}
         </AppButton>
 
         <View>
           <Text className="mb-6 text-gray-300 text-base">
-            Ainda não possui uma conta?
+            já possui uma conta?
           </Text>
           <AppButton
-            onPress={() => navigation.navigate("Register")}
+            onPress={() => navigation.navigate("Login")}
             iconName="arrow-forward"
             mode="outline"
           >
-            Cadastrar
+            Acessar
           </AppButton>
         </View>
       </View>
