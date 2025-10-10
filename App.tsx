@@ -1,11 +1,11 @@
-import "./src/styles/global.css";
-import NavigationRoutes from "@/routes";
-import { AuthContextProvider } from "@/context/auth.context";
-import { SnackbarContextProvider } from "@/context/snackbar.context";
-import { Snackbar } from "@/components/Snackbar";
-import { BottomSheetProvider } from "@/context/bottomsheet.context";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
-import { TransactionContextProvider } from "@/context/transaction.context";
+import NavigationRoutes from '@/routes'
+import './src/styles/global.css'
+import { AuthContextProvider } from '@/context/auth.context'
+import { SnackbarContextProvider } from '@/context/snackbar.context'
+import { Snackbar } from '@/components/Snackbar'
+import { BottomSheetProvider } from '@/context/bottomsheet.context'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { TransactionContextProvider } from '@/context/transaction.context'
 
 export default function App() {
   return (
@@ -21,5 +21,5 @@ export default function App() {
         </AuthContextProvider>
       </SnackbarContextProvider>
     </GestureHandlerRootView>
-  );
+  )
 }

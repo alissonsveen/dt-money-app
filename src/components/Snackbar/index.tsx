@@ -6,7 +6,11 @@ export const Snackbar = () => {
 
   if (!message || !type) return <></>;
 
-  const bgColor = `${type === "SUCCESS" ? "bg-accent-brand-background-primary" : "bg-accent-red-background-primary"}`;
+  const bgColor = `${
+    type === "SUCCESS"
+      ? "bg-accent-brand-background-primary"
+      : "bg-accent-red-background-primary"
+  }`;
 
   return (
     <View
