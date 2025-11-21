@@ -9,6 +9,7 @@ import { TransactionTypeSelector } from "../SelectType"
 import { SelectCategoryModal } from "../SelectCategoryModal"
 import { transactionSchema } from "./schema"
 import * as Yup from "yup"
+import { AppButton } from "../AppButton"
 
 type ValidationErrosTypes = Record<keyof CreateTransactionInterface, string>
 
@@ -24,13 +25,6 @@ export const NewTransaction = () => {
   const [validationErrors, setValidationErrors] =
     useState<ValidationErrosTypes>()
 
-  const setTransactionData = (
-    key: keyof CreateTransactionInterface,
-    value: string | number
-  ) => {
-    setTransaction((prevData) => ({ ...prevData, [key]: value }))
-  }
-
   const handleCreateTransaction = async () => {
     try {
       await transactionSchema.validate(transaction, {
@@ -39,10 +33,23 @@ export const NewTransaction = () => {
     } catch (error) {
       if (error instanceof Yup.ValidationError) {
         console.log("Validation errors:", error.errors)
+        const errors = {} as ValidationErrosTypes
+
+        error.inner.forEach((err) => {
+          if (err.path) {
+            errors[err.path as keyof CreateTransactionInterface] = err.message
+          }
+        })
+        setValidationErrors(errors)
       }
     }
   }
-
+  const setTransactionData = (
+    key: keyof CreateTransactionInterface,
+    value: string | number
+  ) => {
+    setTransaction((prevData) => ({ ...prevData, [key]: value }))
+  }
   return (
     <View className="px-8 py-5">
       <TouchableOpacity
@@ -82,6 +89,12 @@ export const NewTransaction = () => {
           typeId={transaction.typeId}
           setTransactionType={(typeId) => setTransactionData("typeId", typeId)}
         />
+
+        <View className="my-4">
+          <AppButton onPress={handleCreateTransaction}>
+            <Text>Registrar</Text>
+          </AppButton>
+        </View>
       </View>
     </View>
   )
