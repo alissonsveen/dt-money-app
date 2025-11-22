@@ -11,7 +11,7 @@ import { MaterialIcons } from "@expo/vector-icons"
 import { colors } from "@/shared/colors"
 import { useBottomSheetContext } from "@/context/bottomsheet.context"
 import CurrencyInput from "react-native-currency-input"
-import { TransactionTypeSelector } from "../SelectType"
+import { TransactionTypesSelector } from "../SelectType"
 import { SelectCategoryModal } from "../SelectCategoryModal"
 import { transactionSchema } from "./schema"
 import * as Yup from "yup"
@@ -114,9 +114,9 @@ export const NewTransaction = () => {
           <ErrorMessage>{validationErrors.categoryId}</ErrorMessage>
         )}
 
-        <TransactionTypeSelector
+        <TransactionTypesSelector
           typeId={transaction.typeId}
-          setTransactionType={(typeId) => setTransactionData("typeId", typeId)}
+          setTransactionTypes={(typeId) => setTransactionData("typeId", typeId)}
         />
         {validationErrors?.typeId && (
           <ErrorMessage>{validationErrors.typeId}</ErrorMessage>
