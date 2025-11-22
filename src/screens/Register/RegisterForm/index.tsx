@@ -1,21 +1,21 @@
-import { AppButton } from "@/components/AppButton";
-import { AppInput } from "@/components/AppInput";
-import { PublicStackParamsList } from "@/routes/PublicRoutes";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { useForm } from "react-hook-form";
-import { ActivityIndicator, Text, View } from "react-native";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { schema } from "./schema";
-import { useAuthContext } from "@/context/auth.context";
-import { AxiosError } from "axios";
-import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
-import { colors } from "@/shared/colors";
+import { AppButton } from "@/components/AppButton"
+import { AppInput } from "@/components/AppInput"
+import { PublicStackParamsList } from "@/routes/PublicRoutes"
+import { NavigationProp, useNavigation } from "@react-navigation/native"
+import { useForm } from "react-hook-form"
+import { ActivityIndicator, Text, View } from "react-native"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { schema } from "./schema"
+import { useAuthContext } from "@/context/auth.context"
+import { AxiosError } from "axios"
+import { useErrorHandler } from "@/shared/hooks/useErrorHandler"
+import { colors } from "@/shared/colors"
 
 export interface FormRegisterParams {
-  email: string;
-  name: string;
-  password: string;
-  confirmPassword: string;
+  email: string
+  name: string
+  password: string
+  confirmPassword: string
 }
 
 export const RegisterForm = () => {
@@ -31,19 +31,19 @@ export const RegisterForm = () => {
       confirmPassword: "",
     },
     resolver: yupResolver(schema),
-  });
+  })
 
-  const { handleRegister } = useAuthContext();
-  const { handlerError } = useErrorHandler();
-  const navigation = useNavigation<NavigationProp<PublicStackParamsList>>();
+  const { handleRegister } = useAuthContext()
+  const { handleError } = useErrorHandler()
+  const navigation = useNavigation<NavigationProp<PublicStackParamsList>>()
 
   const onSubmit = async (userData: FormRegisterParams) => {
     try {
-      await handleRegister(userData);
+      await handleRegister(userData)
     } catch (error) {
-      handlerError(error, "Falha ao cadastrar usuário");
+      handleError(error, "Falha ao cadastrar usuário")
     }
-  };
+  }
 
   return (
     <>
@@ -104,5 +104,5 @@ export const RegisterForm = () => {
         </View>
       </View>
     </>
-  );
-};
+  )
+}

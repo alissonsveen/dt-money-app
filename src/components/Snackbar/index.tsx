@@ -1,16 +1,16 @@
-import { useSnackbarContext } from "@/context/snackbar.context";
-import { Text, View } from "react-native";
+import { useSnackbarContext } from "@/context/snackbar.context"
+import { Text, View } from "react-native"
 
 export const Snackbar = () => {
-  const { message, type } = useSnackbarContext();
+  const { message, type } = useSnackbarContext()
 
-  if (!message || !type) return <></>;
+  if (!message || !type) return <></>
 
   const bgColor = `${
     type === "SUCCESS"
       ? "bg-accent-brand-background-primary"
       : "bg-accent-red-background-primary"
-  }`;
+  }`
 
   return (
     <View
@@ -18,5 +18,5 @@ export const Snackbar = () => {
     >
       <Text className="text-white text-base font-bold">{message}</Text>
     </View>
-  );
-};
+  )
+}

@@ -1,9 +1,8 @@
-import { AppHeader } from "@/components/AppHeader"
 import { useAuthContext } from "@/context/auth.context"
 import { useTransactionContext } from "@/context/transaction.context"
 import { useErrorHandler } from "@/shared/hooks/useErrorHandler"
 import { useEffect } from "react"
-import { FlatList, Text, TouchableOpacity } from "react-native"
+import { FlatList } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context"
 import { ListHeader } from "./ListHeader"
 
@@ -21,7 +20,7 @@ export const Home = () => {
   }
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       await Promise.all([handleFetchCategories(), fetchTransactions()])
     })()
   }, [])

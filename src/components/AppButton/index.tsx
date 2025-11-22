@@ -1,14 +1,14 @@
-import { Text, TouchableOpacity, TouchableOpacityProps } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import { FC, PropsWithChildren } from "react";
-import clsx from "clsx";
-import { colors } from "@/shared/colors";
-type AppButtonMode = "fill" | "outline";
+import { Text, TouchableOpacity, TouchableOpacityProps } from "react-native"
+import { MaterialIcons } from "@expo/vector-icons"
+import { FC, PropsWithChildren } from "react"
+import clsx from "clsx"
+import { colors } from "@/shared/colors"
+type AppButtonMode = "fill" | "outline"
 
 interface AppButtonParams extends TouchableOpacityProps {
-  mode?: AppButtonMode;
-  iconName?: keyof typeof MaterialIcons.glyphMap;
-  widthFull?: boolean;
+  mode?: AppButtonMode
+  iconName?: keyof typeof MaterialIcons.glyphMap
+  widthFull?: boolean
 }
 
 export const AppButton: FC<PropsWithChildren<AppButtonParams>> = ({
@@ -19,7 +19,7 @@ export const AppButton: FC<PropsWithChildren<AppButtonParams>> = ({
   widthFull = true,
   ...rest
 }) => {
-  const isFill = mode === "fill";
+  const isFill = mode === "fill"
 
   return (
     <TouchableOpacity
@@ -35,14 +35,18 @@ export const AppButton: FC<PropsWithChildren<AppButtonParams>> = ({
         }
       )}
     >
-      <Text
-        className={clsx("text-base", {
-          "text-white": isFill,
-          "text-accent-brand": !isFill,
-        })}
-      >
-        {children}
-      </Text>
+      {typeof children === "string" || typeof children === "number" ? (
+        <Text
+          className={clsx("text-base", {
+            "text-white": isFill,
+            "text-accent-brand": !isFill,
+          })}
+        >
+          {children}
+        </Text>
+      ) : (
+        children
+      )}
 
       {iconName && (
         <MaterialIcons
@@ -52,5 +56,5 @@ export const AppButton: FC<PropsWithChildren<AppButtonParams>> = ({
         />
       )}
     </TouchableOpacity>
-  );
-};
+  )
+}

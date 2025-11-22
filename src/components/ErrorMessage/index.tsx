@@ -1,7 +1,7 @@
-import { Text, View } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import { colors } from "@/shared/colors";
-import { FC, PropsWithChildren } from "react";
+import { Text, View } from "react-native"
+import { MaterialIcons } from "@expo/vector-icons"
+import { colors } from "@/shared/colors"
+import { FC, PropsWithChildren } from "react"
 
 export const ErrorMessage: FC<PropsWithChildren> = ({ children }) => {
   return (
@@ -14,5 +14,5 @@ export const ErrorMessage: FC<PropsWithChildren> = ({ children }) => {
       />
       <Text className="text-accent-red-background-primary"> {children} </Text>
     </View>
-  );
-};
+  )
+}

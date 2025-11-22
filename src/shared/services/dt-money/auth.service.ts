@@ -1,7 +1,7 @@
-import { FormLoginParams } from "@/screens/Login/LoginForm";
-import { FormRegisterParams } from "@/screens/Register/RegisterForm";
-import { dtMoneyAPi } from "@/shared/api/dt-money";
-import { IAuthenticateResponse } from "@/shared/interfaces/https/authenticate-response";
+import { FormLoginParams } from "@/screens/Login/LoginForm"
+import { FormRegisterParams } from "@/screens/Register/RegisterForm"
+import { dtMoneyAPi } from "@/shared/api/dt-money"
+import { IAuthenticateResponse } from "@/shared/interfaces/https/authenticate-response"
 
 export const authenticate = async (
   userData: FormLoginParams
@@ -9,10 +9,10 @@ export const authenticate = async (
   const { data } = await dtMoneyAPi.post<IAuthenticateResponse>(
     "/auth/login",
     userData
-  );
+  )
 
-  return data;
-};
+  return data
+}
 
 export const registerUser = async (
   userData: FormRegisterParams
@@ -20,7 +20,7 @@ export const registerUser = async (
   const { data } = await dtMoneyAPi.post<IAuthenticateResponse>(
     "/auth/register",
     userData
-  );
+  )
 
-  return data;
-};
+  return data
+}

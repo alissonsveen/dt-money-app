@@ -6,50 +6,50 @@ import {
   useContext,
   useRef,
   useState,
-} from "react";
-import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import { TouchableWithoutFeedback, View } from "react-native";
-import { colors } from "@/shared/colors";
+} from "react"
+import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet"
+import { TouchableWithoutFeedback, View } from "react-native"
+import { colors } from "@/shared/colors"
 
 interface BottomSheetContextType {
-  openBottomSheet: (content: React.ReactNode, index: number) => void;
-  closeBottomSheet: () => void;
+  openBottomSheet: (content: React.ReactNode, index: number) => void
+  closeBottomSheet: () => void
 }
 
-export const BottomSheetContext = createContext({} as BottomSheetContextType);
+export const BottomSheetContext = createContext({} as BottomSheetContextType)
 
 export const BottomSheetProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [content, setContent] = useState<React.ReactNode | null>(null);
-  const [index, setIndex] = useState(-1);
-  const [isOpen, setIsOpen] = useState(false);
+  const [content, setContent] = useState<React.ReactNode | null>(null)
+  const [index, setIndex] = useState(-1)
+  const [isOpen, setIsOpen] = useState(false)
 
-  const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = ["70%", "90%"];
+  const bottomSheetRef = useRef<BottomSheet>(null)
+  const snapPoints = ["70%", "90%"]
 
   const openBottomSheet = useCallback(
     (newContent: React.ReactNode, index: number) => {
-      setIndex(index);
-      setContent(newContent);
-      setIsOpen(true);
+      setIndex(index)
+      setContent(newContent)
+      setIsOpen(true)
       requestAnimationFrame(() => {
-        bottomSheetRef.current?.snapToIndex(index);
-      });
+        bottomSheetRef.current?.snapToIndex(index)
+      })
     },
     []
-  );
+  )
 
   const closeBottomSheet = useCallback(() => {
-    setIsOpen(false);
-    setContent(null);
-    setIndex(-1);
-    bottomSheetRef.current?.close();
-  }, []);
+    setIsOpen(false)
+    setContent(null)
+    setIndex(-1)
+    bottomSheetRef.current?.close()
+  }, [])
 
   const handleSheetChanges = useCallback((index: number) => {
     if (index === -1) {
-      setIsOpen(false);
+      setIsOpen(false)
     }
-  }, []);
+  }, [])
 
   return (
     <BottomSheetContext.Provider
@@ -83,9 +83,9 @@ export const BottomSheetProvider: FC<PropsWithChildren> = ({ children }) => {
         <BottomSheetScrollView>{content}</BottomSheetScrollView>
       </BottomSheet>
     </BottomSheetContext.Provider>
-  );
-};
+  )
+}
 
 export const useBottomSheetContext = () => {
-  return useContext(BottomSheetContext);
-};
+  return useContext(BottomSheetContext)
+}

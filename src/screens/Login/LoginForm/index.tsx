@@ -1,21 +1,21 @@
-import { AppButton } from "@/components/AppButton";
-import { AppInput } from "@/components/AppInput";
-import { PublicStackParamsList } from "@/routes/PublicRoutes";
-import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { useForm } from "react-hook-form";
-import { ActivityIndicator, Text, View } from "react-native";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { schema } from "./schema";
-import { useAuthContext } from "@/context/auth.context";
-import { AxiosError } from "axios";
-import { AppError } from "@/shared/helpers/AppError";
-import { useSnackbarContext } from "@/context/snackbar.context";
-import { useErrorHandler } from "@/shared/hooks/useErrorHandler";
-import { colors } from "@/shared/colors";
+import { AppButton } from "@/components/AppButton"
+import { AppInput } from "@/components/AppInput"
+import { PublicStackParamsList } from "@/routes/PublicRoutes"
+import { NavigationProp, useNavigation } from "@react-navigation/native"
+import { useForm } from "react-hook-form"
+import { ActivityIndicator, Text, View } from "react-native"
+import { yupResolver } from "@hookform/resolvers/yup"
+import { schema } from "./schema"
+import { useAuthContext } from "@/context/auth.context"
+import { AxiosError } from "axios"
+import { AppError } from "@/shared/helpers/AppError"
+import { useSnackbarContext } from "@/context/snackbar.context"
+import { useErrorHandler } from "@/shared/hooks/useErrorHandler"
+import { colors } from "@/shared/colors"
 
 export interface FormLoginParams {
-  email: string;
-  password: string;
+  email: string
+  password: string
 }
 
 export const LoginForm = () => {
@@ -29,21 +29,21 @@ export const LoginForm = () => {
       password: "",
     },
     resolver: yupResolver(schema),
-  });
+  })
 
-  const { handleAuthenticate } = useAuthContext();
-  const { handlerError } = useErrorHandler();
-  const { notify } = useSnackbarContext();
+  const { handleAuthenticate } = useAuthContext()
+  const { handleError } = useErrorHandler()
+  const { notify } = useSnackbarContext()
 
-  const navigation = useNavigation<NavigationProp<PublicStackParamsList>>();
+  const navigation = useNavigation<NavigationProp<PublicStackParamsList>>()
 
   const onSubmit = async (userData: FormLoginParams) => {
     try {
-      await handleAuthenticate(userData);
+      await handleAuthenticate(userData)
     } catch (error) {
-      handlerError(error, "Falha ao logar");
+      handleError(error, "Falha ao logar")
     }
-  };
+  }
 
   return (
     <>
@@ -82,5 +82,5 @@ export const LoginForm = () => {
         </View>
       </View>
     </>
-  );
-};
+  )
+}

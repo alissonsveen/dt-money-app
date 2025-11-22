@@ -1,4 +1,4 @@
-import { TransactionTypes } from "@/shared/enums/transaction-types"
+import { TransactionTypes } from "@/shared/enums/transaction-type"
 import { FC } from "react"
 import { Text, TouchableOpacity, View } from "react-native"
 import { MaterialIcons } from "@expo/vector-icons"

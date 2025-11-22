@@ -124,13 +124,7 @@ export const NewTransaction = () => {
 
         <View className="my-4">
           <AppButton onPress={handleCreateTransaction}>
-            <Text>
-              {loading ? (
-                <ActivityIndicator color={colors.white} />
-              ) : (
-                "Registrar"
-              )}
-            </Text>
+            {loading ? <ActivityIndicator color={colors.white} /> : "Registrar"}
           </AppButton>
         </View>
       </View>

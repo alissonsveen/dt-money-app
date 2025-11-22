@@ -1,7 +1,7 @@
-import { DismissKeyBoardView } from "@/components/DismissKeyBoardView";
-import { Text, View } from "react-native";
-import { RegisterForm } from "./RegisterForm";
-import { AuthHeader } from "@/components/AuthHeader";
+import { DismissKeyBoardView } from "@/components/DismissKeyBoardView"
+import { Text, View } from "react-native"
+import { RegisterForm } from "./RegisterForm"
+import { AuthHeader } from "@/components/AuthHeader"
 
 export const Register = () => {
   return (
@@ -11,5 +11,5 @@ export const Register = () => {
         <RegisterForm />
       </View>
     </DismissKeyBoardView>
-  );
-};
+  )
+}

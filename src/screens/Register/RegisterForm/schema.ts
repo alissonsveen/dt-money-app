@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import * as yup from "yup"
 
 export const schema = yup.object().shape({
   name: yup.string().required("Nome é obrigatório"),
@@ -11,4 +11,4 @@ export const schema = yup.object().shape({
     .string()
     .oneOf([yup.ref("password")], "As senhas devem ser iguais")
     .required("Confirmação de senha é obrigatória"),
-});
+})

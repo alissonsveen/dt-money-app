@@ -1,6 +1,6 @@
-import { IUser } from "./user-interface";
+import { IUser } from "./user-interface"
 
 export interface IAuthenticateResponse {
-  user: IUser;
-  token: string;
+  user: IUser
+  token: string
 }
