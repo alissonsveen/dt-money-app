@@ -9,14 +9,82 @@ import { TransactionCard } from "./TransactionCard"
 
 export const Home = () => {
   const { handleLogout } = useAuthContext()
-  const { fetchCategories, fetchTransactions, transactions, refreshTransactions, loading, loadMoreTransactions } = useTransactionContext()
+  const { 
+    fetchCategories,
+    fetchTransactions,
+    transactions,
+    refreshTransactions,
+    loadMoreTransactions,
+    handleLoadings,
+    loadings
+       } = useTransactionContext()
   const { handleError } = useErrorHandler()
 
   const handleFetchCategories = async () => {
     try {
+      handleLoadings({
+        key: "initial",
+        value: true
+      })
       await fetchCategories()
     } catch (error) {
       handleError(error, "Falha ao buscar categorias")
+    } finally {
+      handleLoadings({
+        key: "initial",
+        value: false
+      })
+    }
+  }
+
+  const handleFetchInitialTransactions = async () => {
+    try {
+      handleLoadings({
+        key: 'initial',
+        value: true,
+      })
+      await fetchTransactions({ page: 1 })
+    } catch (error) {
+      handleError(error, 'Falha ao buscar transações')
+    } finally {
+      handleLoadings({
+        key: 'initial',
+        value: false,
+      })
+    }
+  }
+
+  const handleLoadMoreTransactions = async () => {
+    try {
+      handleLoadings({
+        key: 'loadMore',
+        value: true,
+      })
+      await loadMoreTransactions()
+    } catch (error) {
+      handleError(error, 'Falha ao carregar novas transações')
+    } finally {
+      handleLoadings({
+        key: 'loadMore',
+        value: false,
+      })
+    }
+  }
+
+  const handleRefreshTransactions = async () => {
+    try {
+      handleLoadings({
+        key: 'refresh',
+        value: true,
+      })
+      await refreshTransactions()
+    } catch (error) {
+      handleError(error, 'Falha ao recarregar as transações')
+    } finally {
+      handleLoadings({
+        key: 'refresh',
+        value: false,
+      })
     }
   }
 
@@ -33,10 +101,10 @@ export const Home = () => {
         data={transactions}
         keyExtractor={({id}) => `transaction-${id}`}
         renderItem={({item}) => <TransactionCard  transaction={item}/>}
+        ListHeaderComponent={ListHeader}
         onEndReached={loadMoreTransactions}
         onEndReachedThreshold={0.5}
-        ListHeaderComponent={ListHeader}
-        refreshControl={<RefreshControl refreshing={loading} onRefresh={refreshTransactions} />}
+        refreshControl={<RefreshControl refreshing={loadings.refresh} onRefresh={handleRefreshTransactions} />}
       />
     </SafeAreaView>
   )
