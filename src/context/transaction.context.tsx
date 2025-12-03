@@ -12,7 +12,7 @@ import { CreateTransactionInterface } from "@/shared/interfaces/https/create-tra
 import { Transaction } from "@/shared/interfaces/transaction"
 import { TotalTransactions } from "@/shared/interfaces/total-transactions"
 import { UpdateTransactionInterface } from "@/shared/interfaces/https/update-transaction-request"
-import { Pagination } from "@/shared/interfaces/https/get-transactions-request"
+import { Filters, Pagination } from "@/shared/interfaces/https/get-transactions-request"
 
 interface FetchTransactionsParams {
   page: number;
@@ -24,7 +24,15 @@ interface Loadings {
   loadMore: boolean,
 }
 
-interface handleLoadingsParams {key: keyof Loadings, value: boolean}
+interface handleLoadingsParams {
+  key: keyof Loadings,
+  value: boolean
+}
+
+interface handleFiltersParams {
+  key: keyof Filters,
+  value: Date | boolean | number
+}
   
 export type TransactionContextType = {
   fetchCategories: () => Promise<void>
@@ -41,6 +49,9 @@ export type TransactionContextType = {
   pagination: Pagination
   setSearchText: (text: string) => void
   searchText: string
+  filters: Filters
+  handleFilters: (params: handleFiltersParams) => void
+  
 }
 
 export const TransactionContext = createContext({} as TransactionContextType)
@@ -51,6 +62,12 @@ export const TransactionContextProvider: FC<PropsWithChildren> = ({
   const [categories, setCategories] = useState<TransactionCategory[]>([])
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [searchText, setSearchText] = useState("")
+  const [filters, setFilters] = useState<Filters>({
+    categoryIds: {},
+    typeId: undefined,
+    from: undefined,
+    to: undefined,
+  })
 
 
   const [loadings, setLoadings] = useState<Loadings>({
@@ -139,6 +156,12 @@ const loadMoreTransactions = useCallback(async () => {
     fetchTransactions({page: pagination.page + 1})
 }, [loadings.loadMore, pagination, fetchTransactions])
 
+const handleFilters = ({key, value}: handleFiltersParams) => {
+  setFilters((prev) => ({
+    ...prev,
+    [key]: value,
+  }))
+}
 
   return (
     <TransactionContext.Provider
@@ -156,7 +179,9 @@ const loadMoreTransactions = useCallback(async () => {
         loadings,
         pagination,
         setSearchText,
-        searchText
+        searchText,
+        filters,
+        handleFilters
       }}
     >
       {children}
