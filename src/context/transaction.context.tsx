@@ -51,6 +51,7 @@ export type TransactionContextType = {
   searchText: string
   filters: Filters
   handleFilters: (params: handleFiltersParams) => void
+  handleCategoryFilter: (categoryId: number) => void
   
 }
 
@@ -163,6 +164,17 @@ const handleFilters = ({key, value}: handleFiltersParams) => {
   }))
 }
 
+const handleCategoryFilter = (categoryId: number) => {
+  setFilters((prev) => ({
+    ...prev, 
+    categoryIds: {
+      ...prev.categoryIds,
+      [categoryId]: !Boolean(prev.categoryIds[categoryId])
+    }  
+  }))
+
+}
+
   return (
     <TransactionContext.Provider
       value={{
@@ -181,7 +193,8 @@ const handleFilters = ({key, value}: handleFiltersParams) => {
         setSearchText,
         searchText,
         filters,
-        handleFilters
+        handleFilters,
+        handleCategoryFilter
       }}
     >
       {children}

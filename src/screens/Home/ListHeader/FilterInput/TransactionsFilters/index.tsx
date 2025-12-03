@@ -3,6 +3,7 @@ import { colors } from "@/shared/colors"
 import { MaterialIcons } from "@expo/vector-icons"
 import { Text, TouchableOpacity, View } from "react-native"
 import { DateFilter } from "./DateFilter"
+import { CategoryFilter } from "./CategoryFilter"
 
 export const TransactionsFilters = () => {
     const { closeBottomSheet } = useBottomSheetContext()
@@ -15,7 +16,10 @@ export const TransactionsFilters = () => {
               <MaterialIcons name="close" size={20} color={colors.gray[600]} />
             </TouchableOpacity>
           </View>
+          
           <DateFilter />
+
+          <CategoryFilter/>
         </View>
     )
 }
