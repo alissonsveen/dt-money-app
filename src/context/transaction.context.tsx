@@ -62,7 +62,7 @@ export const TransactionContextProvider: FC<PropsWithChildren> = ({
 
   const [pagination, setPagination] = useState<Pagination>({
     page: 1,
-    perPage: 15,
+    perPage: 3,
     totalRows: 0,
     totalPages: 0,
   })
